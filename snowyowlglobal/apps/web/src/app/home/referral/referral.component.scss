@@ -1,0 +1,57 @@
+@import "vars";
+
+.info {
+  //border-top: 2px solid $lightBorderColor;
+  background: $mainColor;
+  color: $textOnMain;
+  font-size: 15px;
+}
+.link {
+  color: $textOnMain;
+}
+
+.name {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid $lightBorderColor;
+}
+
+.amounts {
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+.amount {
+  text-align: center;
+  flex: 1;
+  padding: 8px;
+  font-size: 14px;
+  div {
+    font-weight: bold;
+    margin-bottom: 3px;
+  }
+
+  &:not(:last-child) {
+    border-right: 1px solid $lightBorderColor;
+  }
+}
+
+.date {
+  font-size: 12px;
+  margin-bottom: 3px;
+  color: $darkTextColor;
+}
+
+.event {
+  font-size: 15px;
+}
+
+
+vx-pager {
+  border: none;
+}
+
+vx-page {
+  padding: 0;
+}

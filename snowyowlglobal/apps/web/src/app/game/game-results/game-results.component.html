@@ -1,0 +1,14 @@
+<fa-icon class="close" icon="times" (click)="dialog.close()"></fa-icon>
+<div *ngIf="game?.wonAmount" class="text">
+  <h1>You won!</h1>
+  <h2>${{game?.wonAmount | number}}</h2>
+</div>
+<div *ngIf="!game?.wonAmount" class="text">
+  <h1>Better Luck Next Time!!</h1>
+  <p>You did not win anything from this game.</p>
+</div>
+
+<div class="buttons">
+  <button *ngIf="game?.wonAmount" routerLink="/user/wallet" class="accent" (click)="dialog.close()">My Wallet</button>
+</div>
+<canvas #canvas></canvas>

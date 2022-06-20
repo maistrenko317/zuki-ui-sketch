@@ -1,0 +1,28 @@
+<form #form="ngForm" (submit)="goNext(form)" class="bg-main">
+  <sh-page [headerShadow]="false" [noRefresh]="true">
+    <div shHeaderContent>Sign Up</div>
+    <div shHeaderLeft (click)="goBack()" *ngIf="isMobile$ | async">
+      <fa-icon icon="chevron-left"></fa-icon>Back
+    </div>
+    <div shHeaderRight *ngIf="isMobile$ | async">
+      <button class="accentGreen" tabIndex="2" type="submit" [disabled]="form.invalid || !(canContinue$ | async)">Next</button>
+    </div>
+    <div shPageBody>
+      <h1>Choose a Nickname</h1>
+      <h2>This is how you will appear in games.</h2>
+
+      <vx-form-field>
+        <input vxFormField #input type="text" tabIndex="1" placeholder="Nickname" [(ngModel)]="nickname" name="nickname" required autocomplete="nickname"
+               [class.ng-invalid]="!(isNicknameValid$ | async)">
+
+        <vx-spinner vxSuffix *ngIf="isCheckingNickname$ | async"></vx-spinner>
+      </vx-form-field>
+
+      <h2 class="textError" *ngIf="!(isNicknameValid$ | async)">This nickname is already in use.</h2>
+      <div class="buttons" *ngIf="!(isMobile$ | async)">
+        <button class="light" tabIndex="2" type="button" (click)="goBack()">Back</button>
+        <button class="accentGreen" tabIndex="3" type="submit" [disabled]="form.invalid">Next</button>
+      </div>
+    </div>
+</sh-page>
+</form>

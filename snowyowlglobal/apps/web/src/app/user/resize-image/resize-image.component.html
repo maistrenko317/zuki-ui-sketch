@@ -1,0 +1,23 @@
+<h2 vxDialogTitle>
+  Resize Image
+</h2>
+
+<div vxDialogContent>
+  <div class="container" [style.width.px]="containerSize" [style.height.px]="containerSize">
+    <img #img [src]="url" (load)="onImageLoad(img)" [width]="imageWidth" [height]="imageHeight"
+         (touchstart)="handleTouchStart($event)" (mousedown)="handleTouchStart($event)"
+         [style.transformOrigin]="(originX * 100) + '% ' + (originY * 100) + '%'"
+         [style.transform]="transfom">
+  </div>
+
+  <div class="slider">
+    <fa-icon icon="search-minus" class="icon"></fa-icon>
+    <vx-slider min="1" max="15" (valueChange)="handleZoom($event)"></vx-slider>
+    <fa-icon icon="search-plus" class="icon"></fa-icon>
+  </div>
+</div>
+
+<div vxDialogActions>
+  <button vx-button vx-accent (click)="upload()">Upload Image</button>
+  <button vx-button (click)="close()">Cancel</button>
+</div>

@@ -1,0 +1,130 @@
+@import "vars";
+
+@mixin hostWidthMixin($width) {
+  :host {
+      width: $width;
+      border-radius: 1.5%;
+      margin: 0 0 1em;
+      padding: 0;
+      display: block;
+      text-align: left;
+      margin-left:auto;
+      margin-right:auto;      
+  }
+
+}
+
+@media (max-width: 1919px) { //  Small screens, laptops
+  @include hostWidthMixin(95%);
+}
+
+@media (min-width: 1920px) { // Desktops, large screens
+  @include hostWidthMixin(45%);
+}
+
+.gameCardSubtitle {
+  padding-top: 0; padding-left: 17px;
+  padding-bottom: 15px;
+  padding-right: 15px;
+}
+
+.categoryChip {
+  display: inline-block;
+  padding: 0 25px;
+  height: 30px;
+  font-size: 0.85em;
+  line-height: 30px;
+  border-radius: 25px;
+  background-color: #E7E9EB;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background: transparent;
+  position: relative;
+  img {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.gameName {
+  padding-left: 7px;
+  flex: 1;
+}
+
+.purse {
+  color: #FAB32F;
+  float: right;
+  line-height: 25px;
+  display: block;
+}
+
+.gameImg {
+  display:block;
+  width:100%;
+}
+.content {
+  padding: 15px;
+}
+
+.inner {
+  border-top: 1px solid $lightBorderColor;
+  padding-top: 0;
+}
+
+.description {
+  color: #3a3a3a;
+  font-size: 14px;
+}
+.categories {
+  text-align: left;
+  padding-top: 1em;
+  padding-bottom: 0.5em;  
+  .small {
+    margin-right: 5px;
+    margin-bottom: 0;
+  }
+}
+.small {
+  color: $darkTextColor;
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+
+.payout {
+  text-align: center;
+  font-size: 16px;
+  color: #FAB32F;
+}
+
+
+table {
+  clear: both;
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 5px;
+  text-align: center;
+}
+
+span.card-table-label {
+  padding-top: 0.5em;
+  display:block;
+}
+
+.info {
+  color: #093061;
+  margin-right: 0.5em;
+  font-size: 1.25em;
+}
+
+.joined {
+  color: #309950; //textAccentGreen
+  margin-right: 0.5em;
+}

@@ -1,0 +1,41 @@
+<form #form="ngForm">
+
+  <div class="flex">
+    <vx-form-field>
+
+      <fa-icon [icon]="getCardIcon(creditCard.cardType)" class="card-icon {{creditCard.cardType}}"></fa-icon>
+
+      <input vxFormField type="text" label="Card Number" pattern="[0-9\s]*" [(ngModel)]="card.cardNumber"
+             name="cardNumber" shCreditCard #creditCard="shCreditCard"
+             required autocomplete="cc-number" class="cardNumber">
+
+    </vx-form-field>
+
+  </div>
+
+  <div class="flex">
+    <vx-form-field>
+      <input type="text" vxFormField label="First Name" name="cc-firstname" [(ngModel)]="card.firstname" required autocomplete="cc-firstname">
+    </vx-form-field>
+
+    <vx-form-field>
+      <input type="text" vxFormField label="Last Name" name="cc-lastname" [(ngModel)]="card.lastname" required autocomplete="cc-lastname">
+    </vx-form-field>
+  </div>
+
+  <div class="flex">
+    <vx-form-field>
+      <input type="text" vxFormField label="Expiration Date" name="exp-date" placeholder="MM/YYYY"
+             ngModel shCardExpiry (monthChange)="card.month = $event" (yearChange)="card.year = $event"
+             required autocomplete="cc-exp" class="small">
+    </vx-form-field>
+
+    <vx-form-field>
+      <input type="text" vxFormField pattern="[0-9]*" [label]="creditCard.cardCodeType" [placeholder]="creditCard.codePlaceholder" name="cc-csc"
+             [(ngModel)]="card.cardCode" shCardCvv [isAmex]="creditCard.isAmex" required autocomplete="cc-csc" class="small">
+    </vx-form-field>
+  </div>
+  <div>
+    <vx-checkbox name="saveCard" [(ngModel)]="card.saveForLater">Save this card for later.</vx-checkbox>
+  </div>
+</form>

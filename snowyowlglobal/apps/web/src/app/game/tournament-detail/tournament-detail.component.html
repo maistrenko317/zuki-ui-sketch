@@ -1,0 +1,79 @@
+<div class="header mBottom15" #sticky>
+  <div class="status">
+    <div *ngIf="bracketCountdown" class="countdown">
+      Tournament Starts in <b class="timer">{{bracketCountdownText}}</b>
+    </div>
+    <div *ngIf="!bracketCountdown">
+      <div *ngIf="game.userEliminated">
+        Eliminated in Round {{eliminatedRound + 1}}. Bad Luck!
+      </div>
+      <div *ngIf="!game.userEliminated && game.gameStatus === 'INPLAY'">
+        <div *ngIf="!rounds[currentRound + game.bracketSequence]?.finished; else finishedRound">
+          Now Playing Round: {{currentRound + 1}}
+        </div>
+        <ng-template #finishedRound>
+          <div *ngIf="currentRound" class="mBottom10">
+            Congrats on winning Round: {{currentRound + 1}}!
+          </div>
+          <div>
+            Now Waiting for Round {{currentRound + 2}} to Start.
+          </div>
+        </ng-template>
+      </div>
+      <div *ngIf="game.gameStatus !== 'INPLAY'" class="mTop10">
+        The Tournament is Over.  Thanks for playing!
+      </div>
+    </div>
+  </div>
+  <div class="grid">
+    <div *ngIf="winningsRound > currentRound && !game.userEliminated">
+      <div>Winnings</div>
+      <span *ngIf="(winningsRound - currentRound) === 1">One Round</span>
+      <span *ngIf="(winningsRound - currentRound) !== 1">{{winningsRound - currentRound}} Rounds</span>
+    </div>
+    <div *ngIf="winningsRound <= currentRound || game.userEliminated">
+      <div>My Winnings</div>
+      <span *ngIf="!game.userEliminated">At Least </span>
+      {{payoutModelRounds[game.userEliminated ? eliminatedRound : currentRound]?.eliminatedPayoutAmount | currency:'USD'}}
+    </div>
+    <div>
+      <div>Waiting On</div>
+      <span *ngIf="remainingMatches === 1">One Match</span>
+      <span *ngIf="remainingMatches !== 1">{{remainingMatches}} Matches</span>
+    </div>
+  </div>
+</div>
+
+<div class="roundPayout" #roundPayout *ngFor="let payoutModelRound of payoutModelRounds; let i = index; let last = last" [class.started]="currentPlayerCount <= payoutModelRound.startingPlayerCount">
+  <div class="left">
+    <div class="circle"></div>
+    <div class="bar" *ngIf="!last">
+      <div class="barFill" [style.height.px]="barSizes[i]"></div>
+    </div>
+  </div>
+  <div class="right" *ngIf="!last">
+    <div class="title">Tournament Round {{i + 1}}</div>
+
+    <ng-container *ngIf="payoutModelRound.eliminatedPayoutAmount && payoutModelRounds[i - 1]?.eliminatedPayoutAmount !== payoutModelRound.eliminatedPayoutAmount">
+      <div class="money">
+        At least {{payoutModelRound.eliminatedPayoutAmount | currency:'USD'}}
+      </div>
+
+      <div class="players">{{payoutModelRound.startingPlayerCount}} Winners</div>
+    </ng-container>
+
+    <ng-container *ngIf="rounds[i + game.bracketSequence]; let round">
+      <div class="people mTop10" *ngIf="round.matchedPlayer; let matchedPlayer">
+        <sh-person [person]="subscriber" [didWin]="round.didWin"></sh-person>
+        <span class="vs">vs</span>
+        <sh-person [person]="matchedPlayer.subscriberId | publicProfile | async" [didWin]="round.didOpponentWin"></sh-person>
+      </div>
+
+      <button class="mTop10" (click)="viewRound.emit(round.id)" *ngIf="round.userJoinedRound && round.finished">View Round</button>
+    </ng-container>
+
+  </div>
+  <div class="right" *ngIf="last">
+    <div class="title">1st Place: <span class="money">{{payoutModelRound.eliminatedPayoutAmount | currency:'USD'}}</span></div>
+  </div>
+</div>

@@ -1,0 +1,138 @@
+@import "vars";
+
+:host {
+  display: block;
+}
+
+.header {
+  position: sticky;
+  background: $tournamentHeaderColor;
+  color: #fff;
+  top: $headerHeight;
+  font-size: 16px;
+  z-index: 10;
+  text-align: center;
+}
+
+.countdown {
+  font-size: 19px;
+}
+
+.status {
+  padding: 15px;
+
+}
+
+.grid {
+  display: flex;
+  align-items: stretch;
+  border-top: 1px solid #fff;
+
+  > div { // Grid Item
+    flex: 1;
+    padding: 10px;
+
+    &:not(:last-child) {
+      border-right: 1px solid #fff;
+    }
+
+    > div { // Headers
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+$barBackground: #b9b7b7;
+$barFill: $mainColor;
+$barHeight: 300px;
+.roundPayout {
+  width: 100%;
+  display: flex;
+  height: $barHeight;
+}
+
+.left {
+  flex: 0;
+  text-align: center;
+  padding: 0 10px;
+}
+.right {
+  flex: 1;
+}
+
+$circleHeight: 20px;
+.circle {
+  background: $accentColor;
+  border-radius: 100%;
+  width: $circleHeight;
+  height: $circleHeight;
+  z-index: 1;
+  position: relative;
+
+  &:before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: block;
+    background: $barFill;
+    transition: transform .3s ease;
+    transform: scale(0);
+  }
+
+}
+
+.bar {
+  display: inline-block;
+  height: $barHeight - $circleHeight + 4;
+  width: 5px;
+  background: $barBackground;
+  margin-top: -4px;
+}
+
+.barFill {
+  width: 100%;
+  height: 0;
+  transition: height .3s ease;
+  background: $barFill;
+}
+
+.people {
+  display: flex;
+  align-items: center;
+}
+
+.vs {
+  margin: 10px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: -2px;
+  color: #4a4a4a;
+}
+
+.money {
+  font-size: 16px;
+  color: $accentColor;
+}
+
+.started {
+  .circle:before {
+    transform: scale(1);
+  }
+
+  .title {
+    color: $mainColor;
+  }
+
+  .money {
+    color: $successColor;
+  }
+}
+
+.timer {
+  font-size: 22px;
+}

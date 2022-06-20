@@ -1,0 +1,62 @@
+.wallet-card {
+  margin-left:auto;
+  margin-right: auto;;
+}
+
+.wallet-balance {
+  font-size: large; 
+}
+
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background: transparent;
+  position: relative;
+  img {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.wallet-name {
+  padding-left: 7px;
+  flex: 1;
+}
+
+.info {
+  font-size: 7.5em;
+  color: #093061;
+}
+
+.wallet-banner {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;;
+}
+
+.wallet-component-top-gap {
+  display:block; margin-bottom:1em;
+}
+
+.form input, .form .item, .form {
+  border: none; 
+}
+
+.wallet-action fa-icon {
+  display:block;  
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background: transparent;
+  position: relative;
+  img {
+    width: 25px;
+    height: 25px;
+  }
+}
+

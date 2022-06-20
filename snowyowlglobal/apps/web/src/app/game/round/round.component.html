@@ -1,0 +1,4 @@
+<sh-round-detail *ngIf="currentRound$ | async" [game]="currentGame$ | async" [round]="currentRound$ | async"
+                 [subscriber]="subscriber$ | async" [dialog]="dialog" [currentPlayerCount]="currentPlayerCount$ | async"
+                 (close)="closeRound()" (answerQuestion)="answerQuestion($event)"></sh-round-detail>
+

@@ -1,0 +1,97 @@
+<form ngForm #form="ngForm">
+  <div class="flex noWrap">
+    <h2>E-Check</h2>
+    <vx-checkbox *ngIf="bankAccounts.length" [(ngModel)]="useExistingCheck" name="useExistingCheck">Use existing E-Check</vx-checkbox>
+  </div>
+  <p *ngIf="withdrawing">Using an E-Check to withdraw your money directly into your bank account is the fastest, most secure method of getting your winnings - and it's free.</p>
+  <div *ngIf="!useExistingCheck">
+    <div class="flex">
+      <vx-form-field>
+        <input vxFormField type="text" name="fullName" label="Full Name" [(ngModel)]="bank.checkingAccountName" required>
+      </vx-form-field>
+
+      <vx-form-field>
+        <input vxFormField type="text" name="phoneNumber" [shMask]="{mask: phoneMask}" shPhoneNumber label="Phone Number"
+               [(ngModel)]="echeck.phone" *ngIf="!withdrawing" required>
+      </vx-form-field>
+    </div>
+
+    <div class="flex">
+      <vx-form-field>
+        <input vxFormField type="text" pattern="\d{9}" name="routingNumber" label="Routing Number"
+               [(ngModel)]="bank.routingNumber" (ngModelChange)="routingNumberChange.next($event)"
+               required>
+      </vx-form-field>
+
+      <vx-form-field>
+        <input vxFormField type="text" pattern="[0-9]*" name="accountNumber" label="Account Number"
+               [(ngModel)]="bank.accountNumber"
+               required>
+      </vx-form-field>
+
+      <vx-form-field>
+        <input vxFormField type="text" name="bankName" label="Bank Name" [(ngModel)]="bank.bankName" required>
+      </vx-form-field>
+    </div>
+  </div>
+
+  <div *ngIf="useExistingCheck">
+    <vx-radio-group required name="existingAccount" ngModel (ngModelChange)="handleAccountChange($event)">
+      <vx-radio-button *ngFor="let bank of bankAccounts" [value]="bank">
+        <b>{{bank.checkingAccountName}}</b>
+        <div>{{bank.bankName}}</div>
+        <div>Routing Number: {{bank.routingNumber}}</div>
+        <div>Account Number: {{bank.accountNumber}}</div>
+      </vx-radio-button>
+    </vx-radio-group>
+
+    <div class="flex">
+      <vx-form-field>
+        <input vxFormField type="text" name="phoneNumber" shPhoneNumber [shMask]="{mask: phoneMask}" label="Phone Number"
+               [(ngModel)]="echeck.phone" *ngIf="!withdrawing" required>
+      </vx-form-field>
+    </div>
+  </div>
+  <hr>
+
+  <div class="flex noWrap">
+    <h2>Billing Address</h2>
+    <vx-checkbox *ngIf="billingAddresses.length" [(ngModel)]="useExistingAddress" name="useExistingAddress">Use existing billing address</vx-checkbox>
+  </div>
+
+  <div *ngIf="!useExistingAddress">
+    <vx-autocomplete label="Address" name="addressField" label="Start Typing Address" [filterFunction]="addressFilterFn"
+                     (ngModelChange)="getPlace($event)" (search)="placeChange.next($event)" defaultText="Start typing to search" ngModel required>
+      <vx-item *ngFor="let place of places" [value]="place.place_id">
+        {{place.description}}
+      </vx-item>
+    </vx-autocomplete>
+
+    <!--<div class="flex">-->
+      <!--<input type="text" name="address1" label="Address 1*" [(ngModel)]="address.addr1" required autocomplete="address-line1">-->
+      <!--<input type="text" name="address2" label="Address 2" [(ngModel)]="address.addr2" autocomplete="address-line2">-->
+    <!--</div>-->
+    <!--<div class="flex">-->
+      <!--<input type="text" name="city" label="City*" [(ngModel)]="address.city" required autocomplete="address-level2">-->
+      <!--<select name="state" [(ngModel)]="address.state" required autocomplete="address-level1" title="Choose a State">-->
+        <!--<option value="">Choose a State*</option>-->
+        <!--<option *ngFor='let state of states' [value]="state.val">{{state.name}}</option>-->
+      <!--</select>-->
+      <!--<select name="country" [(ngModel)]="address.countryCode" required autocomplete="country">-->
+        <!--<option value="">Choose a Country*</option>-->
+        <!--<option *ngFor='let country of countries' [value]="country.countryCode">{{country.countryNames | i18n}}</option>-->
+      <!--</select>-->
+      <!--<input type="text" name="zip" label="Zip Code*" [(ngModel)]="address.zip" required autocomplete="postal-code">-->
+    <!--</div>-->
+  </div>
+
+  <div *ngIf="useExistingAddress">
+    <vx-radio-group required name="existingAddress" ngModel (ngModelChange)="handleAddressChange($event)">
+      <vx-radio-button *ngFor="let address of billingAddresses" [value]="address">
+        <div *ngIf="address.addr2">{{address.addr1}} {{address.addr2}},</div>
+        <div *ngIf="!address.addr2">{{address.addr1}},</div>
+        {{address.city}}, {{address.state}} {{address.zip}}
+      </vx-radio-button>
+    </vx-radio-group>
+  </div>
+</form>

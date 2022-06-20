@@ -1,0 +1,17 @@
+<ng-container *ngFor="let round of game.rounds; let i = index; trackBy: trackByRound">
+  <div *ngIf="round.userJoinedRound" (click)="roundClicked(round)" class="round slideInLeft" [style.animationDelay.ms]="i * 500">
+    <div class="roundTitle">
+      {{ round.roundName }}
+    </div>
+    <div class="people">
+      <sh-person [person]="subscriber$ | async" [didWin]="round.didWin" [animationDelay]="i * 500"></sh-person>
+
+      <fa-icon icon="eye" class="view-icon" *ngIf="round.finished"></fa-icon>
+
+      <sh-person [person]="round.matchedPlayer?.subscriberId | publicProfile | async" [animationDelay]="i * 500"
+                 [didWin]="round.didOpponentWin" [unknown]="!round.matchedPlayer"></sh-person>
+    </div>
+
+  </div>
+
+</ng-container>

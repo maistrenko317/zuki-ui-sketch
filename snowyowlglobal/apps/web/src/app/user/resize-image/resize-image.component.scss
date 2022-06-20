@@ -1,0 +1,24 @@
+@import "vars";
+
+.container {
+  overflow: hidden;
+  border: 2px solid $mainColor;
+  cursor: all-scroll;
+  margin: 0 auto;
+}
+
+
+.slider {
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  margin-top: 10px;
+}
+
+vx-slider {
+  flex: 1;
+}
+
+.icon {
+  font-size: 20px;
+}

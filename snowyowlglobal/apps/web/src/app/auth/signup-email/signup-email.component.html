@@ -1,0 +1,25 @@
+<form #form="ngForm" (submit)="goNext(form)" class="bg-main">
+  <sh-page [headerShadow]="false" [noRefresh]="true">
+    <div shHeaderContent>Sign Up</div>
+    <div shHeaderLeft (click)="goBack()" *ngIf="isMobile$ | async">
+      <fa-icon icon="chevron-left"></fa-icon>Back
+    </div>
+    <div shHeaderRight *ngIf="isMobile$ | async">
+      <button class="accentGreen" tabIndex="2" type="submit" [disabled]="form.invalid">Next</button>
+    </div>
+
+    <div shPageBody>
+      <h1>Enter Your Email</h1>
+      <h2>You'll use this to log in to your account</h2>
+      <vx-form-field>
+        <input vxFormField type="email" #input tabIndex="1" placeholder="Email" [(ngModel)]="email" name="email" required
+               autocomplete="email" email>
+      </vx-form-field>
+
+      <div class="buttons" *ngIf="!(isMobile$ | async)">
+        <button class="light" tabIndex="2" type="button" (click)="goBack()">Back</button>
+        <button class="accentGreen" tabIndex="3" type="submit" [disabled]="form.invalid">Next</button>
+      </div>
+    </div>
+  </sh-page>
+</form>

@@ -1,0 +1,30 @@
+<fa-icon class="close" icon="times" (click)="goBack()" *ngIf="canSeeContentWithoutLoggingIn$ | async"></fa-icon>
+<div class="wrapper bg-main login" automated="login-page">
+  <div class="title"><img src="assets/img/logo-shout.svg" alt="Shout Trivia Logo" routerLink="/home/games"></div>
+  <p class="sub">Play in a trivia question tournament and win prizes.</p>
+  <form (submit)="login()" #form="ngForm">
+    <vx-form-field class="mBottom15">
+      <input vxFormField type="email" automated="login-email" placeholder="Email" name="email" [(ngModel)]="email" required email autocomplete="email">
+    </vx-form-field>
+
+    <vx-form-field class="mBottom15">
+      <input vxFormField type="password" automated="login-password" placeholder="Password" name="password" [(ngModel)]="password" required
+             autocomplete="current-password">
+    </vx-form-field>
+
+    <button type="submit" automated="login-button" [disabled]="form.invalid" class="light w100">
+      Log In
+    </button>
+  </form>
+  <div class="or">
+    or
+    <a (click)="goToSignup()">Sign Up</a>
+  </div>
+  <div class="mTop10 link textCenter" routerLink="/auth/forgot-password">
+    Forgot Password?
+  </div>
+  <div class="links">
+    <a routerLink="/terms">Terms and Conditions</a>
+    <a routerLink="/privacy">Privacy</a>
+  </div>
+</div>

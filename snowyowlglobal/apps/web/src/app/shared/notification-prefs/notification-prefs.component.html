@@ -1,0 +1,68 @@
+<sh-page [noRefresh]="true">
+  <div shHeaderLeft (click)="goBack()" *ngIf="isMobile$ | async">
+    <fa-icon icon="chevron-left"></fa-icon> <span>Back</span>
+  </div>
+
+  <div shNavItem routerLink="/home/me" *ngIf="!(isMobile$ | async)">
+    Home
+  </div>
+
+  <div shNavItem routerLink="/user" *ngIf="!(isMobile$ | async)">
+    Edit Profile
+  </div>
+
+  <div shPageBody *ngIf="loadingSub$ | async;" class="card textCenter">
+    <vx-spinner></vx-spinner>
+  </div>
+
+  <div shPageBody class="card" *ngIf="!(loadingSub$ | async);">
+    <vx-pager>
+      <vx-page>
+
+        <h2>Notification Preference</h2>
+
+        <vx-radio-group [ngModel]="preference$ | async" (ngModelChange)="selectPref($event)">
+          <vx-radio-button value="NONE">
+            No notifications
+          </vx-radio-button>
+          <vx-radio-button value="SMS">
+            SMS notifications
+          </vx-radio-button>
+          <vx-radio-button value="EMAIL">
+            Email notifications
+          </vx-radio-button>
+          <vx-radio-button value="APP_PUSH">
+            App Push notifications
+          </vx-radio-button>
+        </vx-radio-group>
+
+        <div class="buttons" *ngIf="newVal">
+          <button *ngIf="newVal !== 'SMS'" (click)="save()" class="accentGreen">Save</button>
+          <button vxPagerNext *ngIf="newVal === 'SMS'">Next</button>
+        </div>
+      </vx-page>
+      <vx-page>
+        <h2>Enter Phone Number</h2>
+
+        <vx-form-field>
+          <input vxFormField type="tel" placeholder="Phone Number" [(ngModel)]="phoneNumber" [shMask]="{mask: phoneMask}" shPhoneNumber required>
+        </vx-form-field>
+        <div class="buttons">
+          <button vxPagerPrevious class="light">Back</button>
+          <button vxPagerNext (click)="sendCode()" [disabled]="!phoneNumber">Send Verification Code</button>
+        </div>
+      </vx-page>
+      <vx-page>
+        <h2>Enter Verification Code</h2>
+        <p>We have sent a verification code to your phone. Please enter it below to verify your phone number.</p>
+
+        <input type="text" placeholder="Verification Code" [(ngModel)]="verificationCode" required>
+
+        <div class="buttons">
+          <button vxPagerPrevious class="light">Back</button>
+          <button (click)="verify()" [disabled]="!verificationCode.length">Verify Phone Number</button>
+        </div>
+      </vx-page>
+    </vx-pager>
+  </div>
+</sh-page>

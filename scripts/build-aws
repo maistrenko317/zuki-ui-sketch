@@ -1,0 +1,15 @@
+#!/bin/bash
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+SNOWYOWLADMIN_ROOT=${SCRIPT_DIR}/../snowy-owl-ui
+SNOWYOWLADMIN_DIST="${SNOWYOWLADMIN_ROOT}/build"
+PWD=$(pwd)
+
+#
+# Building OLD (Angular) UIX
+#
+cd ${SNOWYOWLADMIN_ROOT}
+npm run-script build-aws
+cd ${PWD}
+
+
+${SCRIPT_DIR}/deploy-to-s3 ${SNOWYOWLADMIN_DIST} zukidev

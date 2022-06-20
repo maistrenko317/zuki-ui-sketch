@@ -1,0 +1,59 @@
+<vx-stepper [linear]="true" [vertical]="true" [selectedStep]="0">
+  <vx-step label="Choose Amount" [stepControl]="itemSelected">
+    How much would you like to add?
+
+    <div class="loader mTop10" *ngIf="loadingVenueItems">
+      <vx-spinner></vx-spinner>
+    </div>
+
+    <vx-radio-group [(ngModel)]="selectedItem" #itemSelected="ngModel" required>
+      <vx-radio-button *ngFor="let item of venueItems" [value]="item">{{item.description}}</vx-radio-button>
+    </vx-radio-group>
+
+    <button vxStepperNext="" [disabled]="itemSelected.invalid">Next</button>
+  </vx-step>
+  <vx-step label="Choose Payment Method" [stepControl]="PM">
+    <vx-radio-group [(ngModel)]="selectedPaymentMethod" #PM="ngModel" required>
+      <vx-radio-button *ngFor="let card of creditCards" [value]="card">
+        Existing Card: {{maskCard(card)}}
+      </vx-radio-button>
+      <vx-radio-button [value]="echeck">Use E-Check</vx-radio-button>
+      <vx-radio-button [value]="newCard">
+        Use {{creditCards.length ? 'New'  : ''}} Credit Card
+      </vx-radio-button>
+    </vx-radio-group>
+
+    <button type="button" vxStepperNext [disabled]="PM.invalid">Next</button>
+    <button type="button" vxStepperPrevious="" class="light">Back</button>
+  </vx-step>
+  <vx-step label="Fill Out Credit Card" [stepControl]="cardForm.form" *ngIf="selectedPaymentMethod === newCard">
+    <sh-card-form #cardForm [card]="newCard" [subscriber]="subscriber"></sh-card-form>
+    <button type="button" vxStepperNext [disabled]="cardForm.form.invalid">Next</button>
+    <button type="button" vxStepperPrevious="" class="light">Back</button>
+  </vx-step>
+  <vx-step label="Fill Out E-Check" [stepControl]="checkForm.form" *ngIf="selectedPaymentMethod === echeck">
+    <sh-echeck-form #checkForm [withdrawing]="false" [echeck]="echeck" [(address)]="echeck.address" [(bank)]="echeck.bank"
+                    [countries]="countries" [billingAddresses]="billingAddresses" [bankAccounts]="bankAccounts"></sh-echeck-form>
+    <button type="button" vxStepperNext [disabled]="checkForm.form.invalid">Next</button>
+    <button type="button" vxStepperPrevious class="light">Back</button>
+  </vx-step>
+  <vx-step label="Review Purchase">
+    <p class="mTop0"><b>Purchase Amount:</b> {{selectedItem?.description}}</p>
+    <div [ngSwitch]="selectedPaymentMethod">
+      <div *ngSwitchCase="echeck">
+        <p><b>{{echeck.bank.checkingAccountName}}</b> {{echeck.phone}}</p>
+        <p>{{echeck.address.addr1}},
+          {{echeck.address.city}},
+          {{echeck.address.state}} {{echeck.address.zip}}</p>
+        <p><b>Bank: </b> {{echeck.bank.bankName}}</p>
+        <p><b>Bank Routing Number: </b> {{echeck.bank.routingNumber}}</p>
+        <p><b>Account Number: </b> {{echeck.bank.accountNumber}}</p>
+      </div>
+      <div *ngSwitchDefault>
+        <p><b>Using Card:</b> {{maskCard(selectedPaymentMethod)}}</p>
+      </div>
+    </div>
+    <button (click)="sendPurchase()">Purchase</button>
+    <button type="button" vxStepperPrevious class="light">Back</button>
+  </vx-step>
+</vx-stepper>

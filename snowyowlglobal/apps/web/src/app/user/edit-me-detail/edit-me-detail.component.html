@@ -1,0 +1,54 @@
+<div class="top-gap">&nbsp;</div>
+<div class="card responsive-container">
+  <div class="imgWrap" routerLink="/user">
+    <img [shImage]="subscriber.photoUrl" (click)="imageInput.click()" alt="Click to update avatar" style="cursor: pointer;" default="./assets/img/profile.jpg">
+    <input type="file" accept="image/*" (change)="uploadImage(imageInput.files[0]); imageInput.value = null" #imageInput hidden>
+    <button class="profile-action" (click)="logout.next()"><fa-icon icon="sign-out"></fa-icon>Logout</button>
+  </div>
+  
+  <div class="form">
+    <label class="field-label">First Name</label>
+    <input placeholder="First Name" #first="ngModel" [ngModel]="subscriber.firstName"
+           (ngModelChange)="updateSubscriberField('firstName', $event, first)">
+  
+    <label class="field-label">Last Name</label>
+    <input placeholder="Last Name" #last="ngModel" [ngModel]="subscriber.lastName"
+           (ngModelChange)="updateSubscriberField('lastName', $event, last)">
+    
+    <label class="field-label">Nick Name</label>
+    <input placeholder="Username*" #user="ngModel" required [ngModel]="subscriber.nickname"
+           (ngModelChange)="updateSubscriberField('nickname', $event, user)">
+  
+    <label class="field-label">Email</label>
+    <input type="email" #email="ngModel" placeholder="Email*" required email [ngModel]="subscriber.email"
+           (ngModelChange)="updateSubscriberField('email', $event, email)">
+  
+    <div>
+      
+    <div>
+      <div class="item">
+        <button routerLink="/user/wallet" class="profile-action" ><fa-icon icon="wallet"></fa-icon><span>Wallet</span></button>
+      </div>
+      <div class="item">
+        <button routerLink="/user/notifications" class="profile-action" ><fa-icon icon="bell-exclamation"></fa-icon><span>Notification</span></button>
+      </div>
+    </div>
+  
+  </div>
+  <div class="formState" [ngSwitch]="editingState">
+    <ng-template ngSwitchCase="EDITING">
+      <vx-spinner></vx-spinner> Saving...
+    </ng-template>
+    <ng-template ngSwitchCase="ERROR">
+      <fa-icon icon="times-circle" class="textError"></fa-icon> Error: {{editingError}}
+    </ng-template>
+    <ng-template ngSwitchCase="EDITED">
+      <fa-icon icon="check-circle" class="textSuccess"></fa-icon> Saved!
+    </ng-template>
+  </div>
+  
+  
+
+</div>
+
+

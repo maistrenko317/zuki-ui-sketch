@@ -1,0 +1,35 @@
+@import 'vars';
+
+:host {
+  text-align: center;
+}
+
+.number {
+  font-size: 30px;
+  color: $mainColor;
+}
+
+h2 {
+  font-weight: 500;
+  margin: 15px;
+}
+
+.flash {
+  animation: flashNum 1s ease;
+}
+
+.small {
+  font-size: 11px;
+}
+
+@keyframes flashNum {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.75);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

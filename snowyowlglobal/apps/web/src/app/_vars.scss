@@ -1,0 +1,12 @@
+@import "../../../../libs/theme/vars";
+
+$fontFamily: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+$headerHeight: 47px;
+$headerLineHeight: 45px;
+
+$mobile-width: 480px;
+@mixin desktop {
+  @media (min-width: #{$mobile-width + 1}) {
+    @content;
+  }
+}

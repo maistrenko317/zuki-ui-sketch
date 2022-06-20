@@ -1,0 +1,38 @@
+<sh-game-card [game]="game" [hasContent]="true">
+  <div class="container">
+
+    <section>
+      <div *ngIf="game.gameStatus === 'OPEN' && !game.userJoinedGame" class="status">
+        <button class="accentGreen playTournament" #current (click)="joinGame.next();">Play Tournament</button>
+      </div>
+
+      <div class="status">
+        <button *ngIf="game.gameStatus === 'OPEN'" class="inviteFriend" (click)="invite()">Invite a Friend</button>
+        <button (click)="viewGameGuide()" class="viewGuide">View Guide</button>
+      </div>      
+
+    </section>
+
+
+    <div *ngIf="game.playStatus === 'UPCOMING' && game.hasPoolRounds" #current class="status">
+      <p style="margin-top: 10px">Come back {{game.expectedStartDateForPoolPlay | shdate}} to play the Warmup Rounds!</p>
+    </div>
+
+
+    <div *ngIf="game.playStatus === 'POOL' && game.userJoinedGame && game.hasPoolRounds && nextRound" class="status">
+        <button class="accentGreen" #current (click)="playNextRound.next()">Play {{ nextRound.roundName }}</button>
+    </div>
+
+    <div *ngIf="game.gameStatus === 'INPLAY'" class="status">
+      <p>The tournament has started!</p>
+    </div>
+
+    <div *ngIf="game.gameStatus === 'CLOSED'" class="status">
+      <button (click)="viewResults.next()">View Game Results!</button>
+    </div>
+  </div>
+</sh-game-card>
+
+<sh-round-list [game]="game" (viewRound)="viewRound.emit($event)">
+
+</sh-round-list>

@@ -1,0 +1,52 @@
+.container {
+  text-align: center;
+}
+
+.playTournament {
+  width:100%;
+}
+
+.inviteFriend {
+  width:48%;
+  float:left;
+}
+
+.viewGuide {
+  width:48%;
+  float:right;
+}
+
+.startDate {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.flash {
+  animation: flashItems 1s ease;
+  animation-iteration-count: 2;
+  animation-delay: 1s;
+}
+
+.status {
+  margin-top: 15px;
+}
+
+.info {
+  font-size: 22px;
+  vertical-align: middle;
+  line-height: 1;
+  color: #D27B1F;
+}
+
+@keyframes flashItems {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+

@@ -1,0 +1,12 @@
+<div class="referral-event-list-top-gap">&nbsp;</div>
+<div class="card">
+  <sh-referrer-profile [level]="level" [nickname]="nickname" [onProfileBackClick]="onProfileBackClick()"></sh-referrer-profile>
+</div>
+
+<div class="card">
+    
+    <sh-referral-table [nickname]="zeroLevelNickName" (referral3TierDTOEvent)="onReferral3TierDTOEvent($event)" (referrerEvent)="onReferrerEvent($event)"></sh-referral-table>
+</div>
+
+
+

@@ -1,0 +1,67 @@
+<sh-page (refresh)="refresh($event)">
+  <div shHeaderLeft (click)="goBack()" *ngIf="isMobile$ | async">
+    <fa-icon icon="chevron-left"></fa-icon> <span>Back</span>
+  </div>
+
+  <div shNavItem routerLink="/home/me" *ngIf="!(isMobile$ | async)">
+    Home
+  </div>
+
+  <div shNavItem routerLink="/user" *ngIf="!(isMobile$ | async)">
+    Edit Profile
+  </div>
+
+  <div shNavItem routerLink="/user/wallet" *ngIf="!(isMobile$ | async)">
+    Wallet
+  </div>
+
+  <div shHeaderContent>Withdraw Money</div>
+
+  <div shPageBody *ngIf="subscriber$ | async; let subscriber;">
+    <div class="top-gap">&nbsp;</div>
+    <div class="card responsive-container">
+      <div class="action-card-header">
+        <h2>Widthdraw Money</h2>
+      </div>
+      <vx-stepper [vertical]="true" [linear]="true">
+        <vx-step label="Withdraw Amount" [stepControl]="amountField">
+          <h3>Available to Withdraw: {{subscriber.availableWallet | currency:'USD'}}</h3>
+  
+          <vx-form-field class="widthdraw">
+            <input vxFormField type="text" [shMin]="0.01" [shMax]="subscriber.availableWallet"
+                   [shMask]="{mask: numberMask}" placeholder="Withdraw Amount" [(ngModel)]="amount" #amountField="ngModel" required>
+          </vx-form-field>
+  
+  
+          <button vxStepperNext [disabled]="amountField.invalid">Next</button>
+          <!--<button [disabled]="!canWithdraw(amount.value, subscriber.availableWallet)" (click)="requestWithdraw(amount.value)">Withdraw</button>-->
+        </vx-step>
+        <vx-step label="Fill Out Echeck" [stepControl]="checkForm.form">
+          <sh-echeck-form #checkForm [withdrawing]="false" [echeck]="echeck" [(address)]="echeck.address" [(bank)]="echeck.bank"
+                          [countries]="countries$ | async" [billingAddresses]="billingAddresses$ | async" [bankAccounts]="bankAccounts$ | async"></sh-echeck-form>
+  
+          <button vxStepperNext [disabled]="checkForm.form.invalid">Next</button>
+          <button vxStepperPrevious class="light">Back</button>
+        </vx-step>
+        <vx-step label="Confirm">
+          <b>Withdraw Amount: </b> {{amountNumber | currency:'USD'}}
+  
+          <p><b>{{echeck.bank.checkingAccountName}}</b> {{echeck.phone}}</p>
+          <p>{{echeck.address.addr1}},
+            {{echeck.address.city}},
+            {{echeck.address.state}} {{echeck.address.zip}}</p>
+          <p><b>Bank: </b> {{echeck.bank.bankName}}</p>
+          <p><b>Bank Routing Number: </b> {{echeck.bank.routingNumber}}</p>
+          <p><b>Account Number: </b> {{echeck.bank.accountNumber}}</p>
+  
+          <button class="submit accentGreen" (click)="withdraw()">Withdraw</button>
+  
+        </vx-step>
+      </vx-stepper>      
+    </div>
+
+
+  </div>
+  <!-- Kludge line: Gives the vx-autocomplete space to scroll.-->
+  <div style="height: 500px;"></div>
+</sh-page>
