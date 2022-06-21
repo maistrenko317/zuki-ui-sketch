@@ -1,0 +1,52 @@
+<sh-page [noRefresh]="true">
+    
+  <div shHeaderLeft (click)="goBack()" *ngIf="isMobile$ | async">
+    <fa-icon icon="chevron-left"></fa-icon> <span>Back</span>
+  </div>
+
+  <div shNavItem routerLink="/home/me" *ngIf="!(isMobile$ | async)">
+    Home
+  </div>
+
+  <div shNavItem routerLink="/user" *ngIf="!(isMobile$ | async)">
+    Edit Profile
+  </div>
+
+  <div shPageBody="" *ngIf="subscriber$ | async; let subscriber">
+    <div class="top-gap">&nbsp;</div>
+    <div class="card responsive-container wallet-card">
+      <div class="action-card-header">
+        <h2>Wallet</h2>
+      </div>
+
+      <div class="wallet-banner">
+        <!-- You have <br> ${{subscriber.wallet | number}} <br> in your wallet. -->
+        <fa-icon icon="envelope-open-dollar" class="info"></fa-icon>
+        <p class="wallet-balance">Current Balance: <b>${{subscriber.wallet | number}}</b></p>
+      </div>
+
+      <div class="form">
+        <div class="item" routerLink="/user/wallet/add">
+          <button class="wallet-action" style="width:100%;">
+            <fa-icon icon="plus-circle"></fa-icon>
+            <span>Add Money</span>
+          </button>
+        </div>
+        <div class="item" routerLink="/user/wallet/withdraw">
+          <button class="wallet-action" style="width:100%;">
+            <fa-icon icon="minus-circle"></fa-icon>
+            <span>Withdraw Money</span>
+          </button>
+        </div>
+        <div class="item last" routerLink="/user/wallet/redeem">
+          <button class="wallet-action" style="width:100%;">
+            <fa-icon icon="gift-card"></fa-icon>
+            <span>Redeem Coupon</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+</sh-page>

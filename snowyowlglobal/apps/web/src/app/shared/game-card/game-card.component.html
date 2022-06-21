@@ -1,0 +1,40 @@
+<div class="header">
+  <span class="gameName">{{ game.gameNames | i18n }}</span> 
+  <div class="big">
+    <fa-icon icon="calendar-check" class="info joined" *ngIf="game.userJoinedGame"></fa-icon>
+    <fa-icon icon="calendar" class="info" *ngIf="!game.userJoinedGame"></fa-icon>
+    <span class="gameDate">Starts {{ game.expectedStartDateForBracketPlay | date:'shortDate'}}</span>
+  </div>
+</div>
+<div class="gameCardSubtitle">
+  <div class="description">{{ game.gameDescriptions | i18n }}</div>
+</div>
+<img class="gameImg" src="{{game.gamePhotoUrl}}"/>
+
+<div class="content inner" *ngIf="hasContent">
+  <ng-content></ng-content>
+</div>
+
+<table>
+  <tr>
+    <td colspan="3" class="categories">
+      <span *ngFor="let category of game.categoryIds; let last= last;">
+          <div class="categoryChip">{{ category | categoryName | async | i18n }}</div>
+      </span>
+    </td>
+  </tr>
+  <tr>
+    <td (click)="showPayoutSlider(); $event.stopPropagation()">      
+      <span class="card-table-label"><fa-icon icon="award" class="info"></fa-icon>Top Prize</span>
+      <span class="card-table-label payout">${{ game.topPayout | number }}</span>
+    </td>
+    <td (click)="ticketPriceInfo(); $event.stopPropagation()">      
+      <span class="card-table-label"><fa-icon icon="ticket" class="info"></fa-icon>Ticket Price</span>
+      <span class="card-table-label">{{ game.costToJoin | currency:'USD' }}</span>
+    </td>
+    <td (click)="startTimeInfo(); $event.stopPropagation()">      
+      <span class="card-table-label"><fa-icon icon="clock" class="info"></fa-icon>Start Time </span>
+      <span class="card-table-label">{{game.expectedStartDateForBracketPlay | date:'shortTime'}}</span>
+    </td>
+  </tr>
+</table>

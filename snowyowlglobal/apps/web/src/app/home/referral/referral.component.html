@@ -1,0 +1,10 @@
+<div *ngIf="loading && !me" class="mTop15 textCenter">
+  <vx-spinner></vx-spinner>
+</div>
+
+<vx-pager [selectedPage]="selectedPage">
+  <vx-page>
+    <sh-referral-event-list [person]="me" (goBack)="back()" (copyToClipboard)="copyToClipboard()" [meNickname]="nickname" [referralUrl]="referralUrl" (childSelected)="onChildSelected($event)"></sh-referral-event-list>
+  </vx-page>
+</vx-pager>
+

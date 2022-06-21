@@ -1,0 +1,22 @@
+$mainColor: #093061; //#9825D9
+$textOnMain: white;
+
+$errorColor: #b82f2f;
+
+$backgroundColor: white;
+$pageBackgroundColor: #eee;
+$foregroundColor: black;
+$accentColor: #D47C01;
+$accentGreenColor: #309950;
+$successColor: green;
+
+$lightBorderColor: mix($foregroundColor, $backgroundColor, 15%);
+$darkTextColor: #595959;
+
+$cardHeaderColor: #F5F4F6;
+
+$formBorderColor: #d2d2d2;
+
+$tournamentHeaderColor: lighten($mainColor, 20%);
+
+$buttonColor: #518cd7;

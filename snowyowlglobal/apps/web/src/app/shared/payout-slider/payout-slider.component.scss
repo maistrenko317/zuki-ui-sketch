@@ -1,0 +1,36 @@
+@import "vars";
+
+[vxDialogActions] {
+  display: block;
+  text-align: center;
+}
+
+.top {
+  font-size: 20px;
+}
+
+.runner {
+  font-size: 18px;
+}
+.money {
+  color: $accentColor;
+}
+.level {
+  margin-top: 5px;
+}
+
+.container {
+  position: relative;
+}
+
+.loading {
+  position: absolute;
+  background: transparentize($foregroundColor, 0.7);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

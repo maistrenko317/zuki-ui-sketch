@@ -1,0 +1,23 @@
+<h2 vxDialogTitle *ngIf="title?.length">{{title}}</h2>
+<div vxDialogContent>
+  <div [style.fontSize.px]="c.fontSize" [class.bolded]="c.bolded" [class.underline]="c.underline"
+       [style.marginTop.px]="c.mTop" [class.textCenter]="c.center" *ngFor="let c of content" (click)="handleClick(c, $event)">
+    <span *ngIf="c.type === 'text'" [class.textAccent]="c.accent">{{c.text}}</span>
+
+    <span [class.bolded]="span.bolded" [class.underline]="span.underline" [class.textAccent]="span.accent" [style.fontSize.px]="span.fontSize" [style.color]="span.color"
+          *ngFor="let span of c.spans">
+      {{span.text}}
+    </span>
+
+    <a *ngIf="c.type === 'link'" [href]="c.link" [class.textAccent]="c.accent" target="_blank" class="link">{{c.text}}</a>
+
+    <hr *ngIf="c.type === 'divider'">
+
+    <vx-spinner *ngIf="c.type === 'spinner'"></vx-spinner>
+
+    <button *ngIf="c.type === 'button'" [class.accent]="c.accent" [class.accentGreen]="c.accentGreen">{{c.text}}</button>
+  </div>
+</div>
+<div vxDialogActions *ngIf="buttons.length">
+  <button *ngFor="let button of buttons" (click)="dialog.close(button)">{{button}}</button>
+</div>

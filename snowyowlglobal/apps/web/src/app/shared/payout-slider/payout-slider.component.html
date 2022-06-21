@@ -1,0 +1,28 @@
+<div vxDialogTitle>
+  The number of players in a game affects the amount of money we give away.  Drag the slider below to see how the payouts change for this event.
+</div>
+<div vxDialogContent class="container">
+  <div *ngFor="let round of payoutLevels; let i = index" [class.level]="!!i">
+    <span *ngIf="i === 0" class="top">
+      Top Prize: <span class="money">${{round.eliminatedPayoutAmount | number}}</span>
+    </span>
+    <span *ngIf="i === 1" class="runner">
+      Runner Up: <span class="money">${{round.eliminatedPayoutAmount | number}}</span>
+    </span>
+    <span *ngIf="i > 1">
+      Winners {{(round.startingPlayerCount - round.eliminatedPlayerCount + 1) | number}} to {{round.startingPlayerCount | number}}: <span class="money">${{round.eliminatedPayoutAmount | number}}</span>
+    </span>
+
+  </div>
+  <div class="loading" *ngIf="loading && payoutLevels?.length">
+    <vx-spinner></vx-spinner>
+  </div>
+
+  <div class="mTop10 textCenter" *ngIf="loading && !payoutLevels?.length">
+    <vx-spinner></vx-spinner>
+  </div>
+</div>
+<div vxDialogActions>
+  <div class="mBottom10">Number of Players: {{sliderValue | number}}</div>
+  <vx-slider [min]="min" [max]="game.maximumPlayerCount" [step]="1" [value]="sliderValue" (valueChange)="sliderValue$.next($event)"></vx-slider>
+</div>

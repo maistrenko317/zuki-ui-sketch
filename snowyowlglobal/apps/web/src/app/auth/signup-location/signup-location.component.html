@@ -1,0 +1,24 @@
+<form #form="ngForm" (submit)="goNext(form)" class="bg-main">
+  <sh-page [headerShadow]="false" [noRefresh]="true">
+    <div shHeaderContent>Sign Up</div>
+    <div shHeaderLeft (click)="goBack()" *ngIf="isMobile$ | async">
+      <fa-icon icon="chevron-left"></fa-icon>Back
+    </div>
+    <div shHeaderRight *ngIf="isMobile$ | async">
+      <button class="accentGreen" tabIndex="2" type="submit" [disabled]="form.invalid">Next</button>
+    </div>
+    <div shPageBody>
+      <h1>Select Your Location</h1>
+      <h2>We'll use this information to comply with local laws related to playing Shout Trivia.</h2>
+
+      <vx-autocomplete #input [(ngModel)]="state" name="state" placeholder="Location" required>
+        <vx-item *ngFor="let state of states" [value]="state.val">{{state.name}}</vx-item>
+      </vx-autocomplete>
+
+      <div class="buttons" *ngIf="!(isMobile$ | async)">
+        <button class="light" tabIndex="2" type="button" (click)="goBack()">Back</button>
+        <button class="accentGreen" tabIndex="3" type="submit" [disabled]="form.invalid">Next</button>
+      </div>
+    </div>
+</sh-page>
+</form>

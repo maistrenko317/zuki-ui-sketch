@@ -1,0 +1,33 @@
+<sh-page [noRefresh]="true">
+  <div class="top-gap">&nbsp;</div>
+  <div shHeaderLeft (click)="goBack()" *ngIf="isMobile$ | async">
+    <fa-icon icon="chevron-left"></fa-icon> <span>Back</span>
+  </div>
+
+  <div shNavItem routerLink="/home/me" *ngIf="!(isMobile$ | async)">
+    Home
+  </div>
+
+  <div shNavItem routerLink="/user" *ngIf="!(isMobile$ | async)">
+    Edit Profile
+  </div>
+
+  <div shNavItem routerLink="/user/wallet" *ngIf="!(isMobile$ | async)">
+    Wallet
+  </div>
+
+
+
+  <div shPageBody="">
+    <div class="top-gap">&nbsp;</div>
+    <div class="card responsive-container"> 
+      <div class="action-card-header">
+        <h2>Add Money</h2>   
+      </div>  
+      <sh-add-money-stepper [loadingVenueItems]="loadingVenueItems$ | async" (purchase)="purchase($event)"
+                            [venueItems]="venueItems$ | async" [countries]="countries$ | async" [bankAccounts]="bankAccounts$ | async"
+                            [billingAddresses]="billingAddresses$ | async" [subscriber]="subscriber$ | async"
+                            [creditCards]="creditCards$ | async"></sh-add-money-stepper>
+    </div>
+  </div>
+</sh-page>

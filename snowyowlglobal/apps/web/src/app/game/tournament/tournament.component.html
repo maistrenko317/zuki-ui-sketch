@@ -1,0 +1,33 @@
+<sh-page [noRefresh]="true" *ngIf="currentGame$ | async; let game; else outerLoader">
+  <div shHeaderLeft (click)="goBack()" *ngIf="game.playStatus !== 'BRACKET' || game.userEliminated">
+    <fa-icon icon="chevron-left"></fa-icon>Back
+  </div>
+  <div shHeaderContent>
+    Tournament
+  </div>
+
+  <div shPageBody>
+    <sh-tournament-detail *ngIf="game.actualPayout; else loader" [bracketCountdown]="bracketCountTime$ | async"
+                          [currentPlayerCount]="currentPlayerCount$ | async" [game]="game"
+                          [subscriber]="subscriber$ | async" (viewRound)="viewRound($event)"></sh-tournament-detail>
+
+    <ng-template #loader>
+      <div class="textCenter mTop10">
+        <vx-spinner></vx-spinner>
+      </div>
+    </ng-template>
+  </div>
+</sh-page>
+
+<ng-template #outerLoader>
+  <sh-page [noRefresh]="true">
+    <div shHeaderContent>
+      Tournament
+    </div>
+    <div shPageBody>
+        <div class="textCenter mTop10">
+          <vx-spinner></vx-spinner>
+        </div>
+    </div>
+  </sh-page>
+</ng-template>

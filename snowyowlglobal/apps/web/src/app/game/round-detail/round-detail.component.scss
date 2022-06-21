@@ -1,0 +1,105 @@
+@import "vars";
+
+.page {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  animation-delay: .3s;
+}
+
+sh-person {
+  animation-delay: .6s;
+}
+
+.roundTitle {
+  text-align: center;
+  margin: 0 10px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.questionTitle {
+  padding: 5px 10px;
+  flex: 1;
+  text-align: center;
+}
+
+.questionText {
+  font-size: 17px;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.answers {
+  position: relative;
+  button {
+    transition: background .3s;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    margin-top: 12px;
+    padding: 17px;
+    font-size: 18px;
+    opacity: 1; // don't look visually disabled
+  }
+}
+
+.incorrect {
+  background-color: #cbcbcb;
+  color: black;
+  pointer-events: none;
+}
+
+.answerLeft, .answerRight {
+  display: block;
+  position: absolute;
+  color: currentColor;
+  font-size: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.answerLeft {
+  left: 0;
+}
+.answerRight {
+  right: 0;
+}
+
+.flex1 {
+  min-height: 10px;
+}
+
+.close {
+  float: right;
+}
+
+vx-spinner {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+
+  &.large {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.pairing {
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.buttonBar {
+ flex-shrink: 0;
+}
+
+.questionBody {
+  overflow: auto;
+  flex: 1;
+  flex-basis: auto;
+}

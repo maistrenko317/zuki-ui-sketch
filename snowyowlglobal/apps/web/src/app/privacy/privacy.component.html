@@ -1,0 +1,15 @@
+<sh-page [noRefresh]="true">
+  <div shHeaderLeft (click)="goBack()" *ngIf="isMobile$ | async">
+    <fa-icon icon="chevron-left"></fa-icon>Back
+  </div>
+  <div shHeaderContent>Privacy</div>
+
+  <div class="card" shPageBody>
+    <div *ngIf="loadingPrivacy$ | async; else privacy" class="textCenter">
+      <vx-spinner></vx-spinner>
+    </div>
+    <ng-template #privacy>
+      <div [innerHTML]="parsedDoc$ | async"></div>
+    </ng-template>
+  </div>
+</sh-page>

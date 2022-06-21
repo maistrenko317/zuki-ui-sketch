@@ -1,0 +1,30 @@
+<sh-page [noRefresh]="true">
+  <div shHeaderLeft (click)="goBack()" *ngIf="isMobile$ | async">
+    <fa-icon icon="chevron-left"></fa-icon> <span>Back</span>
+  </div>
+
+  <div shNavItem routerLink="/home/me" *ngIf="!(isMobile$ | async)">
+    Home
+  </div>
+
+  <div shNavItem routerLink="/user" *ngIf="!(isMobile$ | async)">
+    Edit Profile
+  </div>
+
+  <div shNavItem routerLink="/user/wallet" *ngIf="!(isMobile$ | async)">
+    Wallet
+  </div>
+
+  <form shPageBody  style="padding:0; margin:0;" (submit)="form.valid ? redeem() : null" #form="ngForm">
+    <div class="top-gap">&nbsp;</div>
+    <div class="card responsive-container">      
+      <div class="action-card-header">
+        <h2>Redeem Coupon</h2>
+      </div>
+      <vx-form-field class="mTop15 w100">
+        <input vxFormField placeholder="Coupon Code" [(ngModel)]="couponCode" name="code" required>
+      </vx-form-field>
+      <button class="w100 mTop15" [class.accentGreen]="couponCode">Redeem Now</button>
+      </div>
+  </form>
+</sh-page>

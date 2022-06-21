@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "esnext",
+    "baseUrl": "./",
+    "noEmitHelpers": true,
+    "sourceMap": false
+  },
+  "exclude": [
+    "e2e"
+  ],
+  "include": [
+    "apps/mobile/app/**/*.module.ts",
+    "apps/mobile/references.d.ts",
+    "apps/mobile/app/main.ts",
+    "libs/**/*"
+  ]
+}

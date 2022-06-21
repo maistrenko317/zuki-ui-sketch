@@ -1,0 +1,222 @@
+@import "app/vars";
+@import "cards";
+
+@import "~vx-components/theming";
+
+$colors: (
+  primary: $mainColor,
+  background: $backgroundColor,
+  foreground: $foregroundColor,
+  accent: $accentColor
+);
+
+@include vx-dialog-theme($colors);
+@include vx-spinner-theme($colors);
+@include vx-stepper-theme($colors);
+@include vx-radio-theme($colors);
+@include vx-checkbox-theme($colors);
+@include vx-slider-theme($colors);
+@include vx-button-theme($colors);
+//@include vx-pager-theme($colors);
+@include vx-menu-theme($colors);
+@include vx-form-field-theme($colors);
+@include vx-autocomplete-theme($colors);
+@include vx-toast-theme($colors);
+
+.bg-main {
+  @include vx-form-field-theme((
+    primary: lighten($mainColor, 60%),
+    background: $mainColor,
+    foreground: $backgroundColor,
+    accent: $accentColor
+  ));
+  @include vx-menu-theme((
+    primary: lighten($mainColor, 60%),
+    background: $mainColor,
+    foreground: $backgroundColor,
+    accent: $accentColor
+  ));
+  @include vx-autocomplete-theme((
+    primary: lighten($mainColor, 60%),
+    background: $mainColor,
+    foreground: $backgroundColor,
+    accent: $accentColor
+  ));
+  @include vx-spinner-theme((
+    primary: lighten($mainColor, 60%),
+    background: $mainColor,
+    foreground: $backgroundColor,
+    accent: $accentColor
+  ));
+
+  @include vx-checkbox-theme((
+    primary: lighten($mainColor, 60%),
+    background: $mainColor,
+    foreground: $backgroundColor,
+    accent: $accentColor
+  ));
+}
+
+html {
+  display: flex;
+  min-height: 100%;
+  background-size: cover;
+  background: $pageBackgroundColor;
+  font-size: 14px;
+}
+
+html, body {
+  font-family: $fontFamily;
+  margin: 0;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.card {
+  width: calc(100% - 30px);
+  margin: 15px;
+  background: $backgroundColor;
+  color: $foregroundColor;
+  border-radius: 15px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, .07);
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 15px;
+  h1 {
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 0;
+  }
+  h2 {
+    font-size: 17px;
+    margin-top: 0;
+  }
+
+  &.fullWidth {
+    width: 100%;
+    border-radius: 0;
+    margin: 15px 0;
+  }
+}
+
+.textCenter {
+  text-align: center;
+}
+.textRight {
+  text-align: right;
+}
+.textLeft {
+  text-align: left;
+}
+.textAccent {
+  color: $accentColor;
+}
+.textAccentGreen {
+  color: $accentGreenColor;
+}
+.textError {
+  color: $errorColor;
+}
+.textSuccess {
+  color: $successColor;
+}
+.mTop10 {
+  margin-top: 10px;
+}
+
+.mTop15 {
+  margin-top: 15px;
+}
+
+.w100 {
+  width: 100%;
+}
+
+.mBottom10 {
+  margin-bottom: 10px;
+}
+
+.mBottom15 {
+  margin-bottom: 15px;
+}
+
+.mBottom0 {
+  margin-bottom: 0;
+}
+.mTop0 {
+  margin-top: 0;
+}
+.pointer {
+  cursor: pointer;
+}
+.pad0 {
+  padding: 0;
+}
+
+.bolded {
+  font-weight: bold;
+}
+.underline {
+  text-decoration: underline;
+}
+.dBlock {
+  display: block;
+}
+.dInline {
+  display: inline-block;
+}
+
+vx-spinner.small {
+  width: 30px;
+  height: 30px;
+}
+
+@include desktop {
+  .card {
+    margin-left: 0;
+    width: 100%;
+    font-size: 16px;
+    padding: 15px;
+    h1 {
+      font-size: 19px;
+    }
+    h2 {
+      font-size: 18px;
+    }
+
+    &.fullWidth {
+      border-radius: 5px;
+      margin: 15px;
+    }
+  }
+  .cardLine {
+    border-top: 1px solid #c1c1c1;
+    margin: 15px -15px;
+  }
+  vx-stepper {
+    margin: -15px;
+  }
+}
+
+
+.flex1 {
+  flex: 1;
+}
+
+.noWrap {
+  white-space: nowrap;
+}
+
+.segmented-bar {
+  .vx-button-group-button {
+    background: $mainColor;
+    border: 1px solid $backgroundColor;
+    color: $backgroundColor;
+    padding: 6px 10px;
+    margin: 0;
+  }
+  .vx-button-group-selected-button {
+    background: $backgroundColor;
+    color: $mainColor;
+  }
+}

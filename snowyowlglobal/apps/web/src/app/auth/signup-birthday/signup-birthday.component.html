@@ -1,0 +1,34 @@
+<form #form="ngForm" (submit)="goNext()" class="bg-main">
+  <sh-page [headerShadow]="false" [noRefresh]="true">
+    <div shHeaderContent>Sign Up</div>
+    <div shHeaderLeft (click)="goBack()" *ngIf="isMobile$ | async">
+      <fa-icon icon="chevron-left"></fa-icon>Back
+    </div>
+    <div shHeaderRight *ngIf="isMobile$ | async">
+      <button class="accentGreen" tabIndex="4" type="submit" [disabled]="!isBirthdayOldEnough">Next</button>
+    </div>
+    <div shPageBody>
+      <h1>Enter Your Birthday</h1>
+      <h2>Let's check and see if you're old enough to play</h2>
+
+      <div class="birthDate">
+        <vx-autocomplete #input name="month" [tabIndex]="1" placeholder="Month" [ngModel]="month + 1" (ngModelChange)="month = $event - 1; setBirthdate()" required>
+          <vx-item *ngFor="let m of months" [value]="m + 1" [disabled]="isInFuture(m, 1, year)"> {{getMonthName(m)}}</vx-item>
+        </vx-autocomplete>
+        <vx-autocomplete name="day" [tabIndex]="2" placeholder="Day" [(ngModel)]="day" (ngModelChange)="setBirthdate()" required>
+          <vx-item *ngFor="let d of days" [value]="d" [disabled]="isInFuture(month, d, year)">{{d}}</vx-item>
+        </vx-autocomplete>
+        <vx-autocomplete name="year" [tabIndex]="3" placeholder="Year" [(ngModel)]="year" (ngModelChange)="setBirthdate()" required>
+          <vx-item *ngFor="let y of years" [value]="y">{{y}}</vx-item>
+        </vx-autocomplete>
+      </div>
+
+      <h2 class="textError" *ngIf="!isBirthdayOldEnough">Must be {{ageToBe}} years of age to play.</h2>
+
+      <div class="buttons" *ngIf="!(isMobile$ | async)">
+        <button class="light" tabIndex="2" type="button" (click)="goBack()">Back</button>
+        <button class="accentGreen" tabIndex="3" type="submit" [disabled]="form.invalid">Next</button>
+      </div>
+    </div>
+</sh-page>
+</form>

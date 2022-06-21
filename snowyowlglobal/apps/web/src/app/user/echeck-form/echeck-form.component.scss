@@ -1,0 +1,24 @@
+vx-form-field {
+  margin-top: 15px;
+  margin-left: 5px;
+  min-width: 130px;
+}
+vx-autocomplete {
+  width: 100%;
+}
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+
+  > :first-child {
+    flex-grow: 1;
+    max-width: calc(100% - 5px);
+    box-sizing: border-box;
+  }
+  > :not(:first-child) {
+    flex: 1;
+    max-width: calc(100% - 5px);
+    box-sizing: border-box;
+  }
+}

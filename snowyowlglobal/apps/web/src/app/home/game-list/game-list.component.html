@@ -1,0 +1,8 @@
+<div *ngIf="games.length" class="game-list-top-gap">&nbsp;</div>
+<sh-game-card *ngFor="let game of games; trackBy: trackGame" [game]="game" [routerLink]="['/game', game.id]"></sh-game-card>
+<div *ngIf="!loading && !games.length" class="textCenter mTop10">
+  No games at this time
+</div>
+<div class="textCenter mTop10" *ngIf="loading && !games.length">
+  <vx-spinner></vx-spinner>
+</div>

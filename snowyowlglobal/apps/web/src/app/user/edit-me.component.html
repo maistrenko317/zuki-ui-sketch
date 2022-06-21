@@ -1,0 +1,23 @@
+<sh-page (refresh)="refresh($event)">
+  <div shHeaderLeft (click)="goBack()" *ngIf="isMobile$ | async">
+    <fa-icon icon="chevron-left"></fa-icon>Back
+  </div>
+
+  <div shNavItem routerLink="/home/me" *ngIf="!(isMobile$ | async)" class="edit-home">
+    Home
+  </div>
+
+  <div shPageBody="">
+
+    <sh-edit-me-detail *ngIf="subscriber$ | async; else loader; let subscriber" [subscriber]="subscriber"
+                       [editingError]="editingError$ | async" [editingState]="editingState$ | async"
+                       (imageChange)="uploadImage($event)" (logout)="logout()"
+                       (updateSubscriber)="updateSubscriber($event)"></sh-edit-me-detail>
+
+    <ng-template #loader>
+      <div class="loader">
+        <vx-spinner></vx-spinner>
+      </div>
+    </ng-template>
+  </div>
+</sh-page>

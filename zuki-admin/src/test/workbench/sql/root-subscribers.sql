@@ -1,0 +1,1 @@
+SELECT subscriber_id, email, nickname, create_date FROM s_subscriber WHERE mint_parent_subscriber_id IS NULL AND NOT (nickname LIKE '__player_%' OR nickname LIKE 'playerbot_%');

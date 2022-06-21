@@ -1,0 +1,35 @@
+<div *ngIf="!unknown" class="flexWrapper" [class.left]="align === 'left'" [class.right]="align === 'right'">
+  <div class="wrapper">
+    <img [shImage]="photoUrl() || img" default="assets/img/profile.jpg">
+    <vx-spinner *ngIf="!person && !img"></vx-spinner>
+    <div class="winner" *ngIf="didWin && animate">WINNER!</div>
+  </div>
+
+  <div class="nameAndHealth">
+    <div class="name">  
+      {{personName()}}
+    </div>
+
+    <div class="hearts">
+      <div class="heart" *ngFor="let heartNum of totalLives | repeat">
+        <fa-icon  [icon]="showBrokenHeart(heartNum) ? ['far', 'heart'] : 'heart'"
+                  [class.broken]="showBrokenHeart(heartNum)">
+
+        </fa-icon>
+
+        <fa-icon *ngIf="heartNum === animatingHeartNum || finishedAnimatingHearts.has(heartNum)" class="weapon {{getWeaponIcon(heartNum)}}" [icon]="getWeaponIcon(heartNum)"></fa-icon>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div *ngIf="unknown" class="flexWrapper" [class.left]="align === 'left'" [class.right]="align === 'right'">
+  <div class="wrapper">
+    <img src="assets/img/profile-question.jpg">
+  </div>
+  <div class="name">
+    Unknown
+  </div>
+</div>

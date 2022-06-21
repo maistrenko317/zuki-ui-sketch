@@ -1,0 +1,43 @@
+<sh-page automated="home-page" (refresh)="refresh.next($event)">
+  <div shHeaderContent *ngIf="currentTab === 'games'">
+    <vx-button-group [value]="selectedGamesView" (valueChange)="selectGamesView.next($event)" class="segmented-bar">
+      <button vx-button="stroked" value="all">All Games</button>
+      <button vx-button="stroked" value="my">My Games</button>
+    </vx-button-group>
+  </div>
+  <div shNavItem routerLink="/home/games" [class.selected]="currentTab === 'games'" class="home-games">
+    Games
+  </div>
+  <div shNavItem routerLink="/home/game-calendar" [class.selected]="currentTab === 'game-calendar'" class="home-games">
+    Calendar
+  </div>
+  <div shNavItem routerLink="/home/referrals" [class.selected]="currentTab === 'referrals'" automated="home-referrals" *ngIf="isLoggedIn" class="home-referrals">
+    Referrals
+  </div>
+  <div shNavItem routerLink="/home/me" [class.selected]="currentTab === 'me'" automated="home-me" class="home-profile">
+    Profile
+  </div>  
+  <div shNavItem routerLink="/user" [class.selected]="currentTab === 'me'" class="home-edit-profile">
+    <img src='{{subscriber!.photoUrl}}' style="height: 2.25em; margin-top: 0.25e m; border-radius:4px;" />
+  </div>
+
+  <div shPageBody>
+    
+    <sh-game-list *ngIf="currentTab === 'games'" [games]="games" [loading]="gamesLoading"></sh-game-list>
+
+    <form (submit)="joinPrivateGame.next(privateEventCode)"
+          *ngIf="currentTab === 'games' && (!gamesLoading || games.length) && isLoggedIn" class="privateGame mTop15">
+      <vx-form-field class="mTop10">
+        <input vxFormField type="text" [(ngModel)]="privateEventCode" name="inviteCode"
+               placeholder="Private Game Invite Code">
+      </vx-form-field>
+      <br>
+      <button class="mTop10" [disabled]="!privateEventCode.length">Join Private Game
+      </button>
+    </form>
+    
+    <sh-me *ngIf="currentTab === 'me'" [subscriber]="subscriber" [isLoggedIn]="isLoggedIn" [games]="subscriberGames" [isLoadingGames]="loadingSubscriberGames"></sh-me>
+    <sh-referral *ngIf="currentTab === 'referrals'" [referralTransactions]="referralTransactions" [referralUrl]="referralUrl" [loading]="loadingReferralInfo" [referredSubscribers]="referredSubscribers" [nickname]="subscriber?.nickname"></sh-referral>
+    <sh-game-calendar *ngIf="currentTab === 'game-calendar'"></sh-game-calendar>
+  </div>
+</sh-page>

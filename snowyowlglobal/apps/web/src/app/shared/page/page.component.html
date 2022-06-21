@@ -1,0 +1,27 @@
+<div class="headerWrapper" [class.shadow]="headerShadow">
+    <div class="header">
+        <div class="headerLeft">
+            <ng-content select="[shHeaderLeft]"></ng-content>
+        </div>
+        <div class="title" [class.pointer]="clickable" (click)="onTitleClick()">
+            <img src="assets/img/zukiMoonSmallWhite.png" alt="" class="headerImage">
+        </div>
+        <ng-content select="[shHeaderContent]"></ng-content>
+        <div class="headerRight">
+            <ng-content select="[shHeaderRight]"></ng-content>
+        </div>
+    </div>
+    <div class="nav">
+        <ng-content select="[shNavItem]"></ng-content>
+    </div>
+</div>
+<div class="body" [class.hasNav]="navItems.length" #body>
+    <div #puller>
+        <div class="refresher" [ngSwitch]="pullState" [class.hidden]="noRefresh">
+            <ng-template ngSwitchCase="default"><fa-icon icon="chevron-up"></fa-icon></ng-template>
+            <ng-template ngSwitchCase="pulled"><fa-icon icon="chevron-down"></fa-icon></ng-template>
+            <ng-template ngSwitchCase="refreshing"><vx-spinner></vx-spinner></ng-template>
+        </div>
+        <ng-content select="[shPageBody]"></ng-content>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="game-component-top-gap">&nbsp;</div>
+<sh-page (refresh)="refreshGame($event)">
+  
+  <div shHeaderLeft (click)="goBack()" *ngIf="isMobile$ | async">
+    <fa-icon icon="chevron-left" class="back"></fa-icon>Back
+  </div>
+
+  <div shNavItem routerLink="/home/games" *ngIf="!(isMobile$ | async)">
+    Home
+  </div>
+
+  <div *ngIf="currentGame$ | async; let game; else loader" shPageBody>
+    <sh-game-details *ngIf="currentGame$ | async; " [game]="game" (joinGame)="joinGame()" (viewRound)="viewRound($event)"
+                     [currentPlayerCount]="currentPlayerCount$ | async"
+                     (playNextRound)="playNextRound()" (viewResults)="viewResults()"></sh-game-details>
+  </div>
+
+  <ng-template #loader>
+    <div shPageBody class="loader">
+      <vx-spinner></vx-spinner>
+    </div>
+  </ng-template>
+</sh-page>

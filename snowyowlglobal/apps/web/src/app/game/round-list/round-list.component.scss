@@ -1,0 +1,50 @@
+@import "vars";
+$arrowColor: mix($foregroundColor, $backgroundColor, 20%);
+@mixin hostWidthMixin($width) {
+  .round {
+    width: $width;
+    padding: 0;
+    border-width: 1px 0;
+    background: $backgroundColor;
+    text-align: center;
+    margin-top: 15px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, .07);
+    margin-left: auto;
+    margin-right:auto;
+    &.last {
+      border-right-width: 3px;
+    }
+  }
+}
+
+@media (max-width: 1919px) { //  Small screens, laptops
+  @include hostWidthMixin(95%);
+}
+
+@media (min-width: 1920px) { // Desktops, large screens
+  @include hostWidthMixin(45%);
+}
+
+.roundTitle {
+  font-weight: bold;
+  padding: 8px;
+  background: $cardHeaderColor;
+}
+
+sh-person {
+  margin: 0 10px;
+  width: 100px;
+}
+
+.people {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 0.75em; padding-top:0.75em
+}
+
+.view-icon {
+  color: #093061;
+  margin-right: 0.5em;
+  font-size: x-large;
+}

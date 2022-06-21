@@ -1,0 +1,59 @@
+<div class="me-gap">&nbsp;</div>
+<div class="card" automated="me-component">
+  <div class="textCenter">
+    <div class="imgWrap" routerLink="/user">
+      <img [shImage]="subscriber.photoUrl" alt="" default="./assets/img/profile.jpg">
+      <fa-icon icon="pencil" class="pencil" *ngIf="isLoggedIn"></fa-icon>
+    </div>
+    <!--<div class="full">Aidan Grant{{ subscriber.firstName }} {{ subscriber.lastName }}</div>-->
+    <div class="email">{{ subscriber.email }}</div>
+    <div class="nick">"{{ subscriber.nickname }}"</div>
+
+    <div *ngIf="!isLoggedIn">
+      <button class="light" routerLink="/auth/login" automated="login-button-me">Log In</button>
+      <button class="light" routerLink="/auth/signup" automated="signup-button-me">Sign Up</button>
+    </div>
+
+    <div *ngIf="isLoggedIn">
+      <button (click)="inviteFriends()">Invite Friends and Win!</button>
+    </div>
+  </div>
+  <div class="amounts">
+    <div class="amount desktop-only">
+      <div><fa-icon icon="gamepad" class="info"></fa-icon><span>Games</span></div>
+      <span *ngIf="isLoadingGames">-</span>
+      <span *ngIf="!isLoadingGames">{{ numGames | number }}</span>      
+    </div>
+    <div class="amount pointer" routerLink="/user/wallet" >
+      <div><fa-icon icon="wallet" class="info"></fa-icon><span>Wallets</span></div>
+      <span><b class="textAccent">${{ wallet | number }}</b></span>
+    </div>
+    <div class="amount">
+      <div><fa-icon icon="trophy-alt" class="info"></fa-icon><span>Game Wins</span></div>
+      <span *ngIf="isLoadingGames">-</span>
+      <span *ngIf="!isLoadingGames">{{ numWins | number }}</span>      
+    </div>
+    
+    <div class="amount desktop-only">
+      <div>
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="external-link-square" class="svg-inline--fa fa-external-link-square fa-w-14 table-icon info" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M448 80v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V80c0-26.51 21.49-48 48-48h352c26.51 0 48 21.49 48 48zm-64 47.111C384 109.929 370.071 96 352.889 96H220.667c-12.887 0-23.333 10.447-23.333 23.334v14.904c0 13.138 10.843 23.686 23.976 23.324l56.002-1.588L69.908 361.908c-7.858 7.802-7.88 20.504-.05 28.334l19.899 19.899c7.83 7.83 20.532 7.808 28.334-.05l205.935-207.404-1.588 56.003c-.362 13.133 10.186 23.976 23.324 23.976h14.904c12.887 0 23.334-10.447 23.334-23.333V127.111z"></path></svg>
+        <span>Referrals</span>
+      </div>
+      <span *ngIf="!referrer">-</span>
+      <span *ngIf="referrer">{{ referrer.peopleReferred }}</span>      
+    </div> 
+
+  </div>
+</div>
+
+<div *ngIf="isLoadingGames && isLoggedIn" class="textCenter mTop10">
+  <vx-spinner></vx-spinner>
+</div>
+
+<div class="games" *ngIf="!isLoadingGames && !!games.length && isLoggedIn">
+    <div class="game" *ngFor="let game of openGames; trackBy: trackGame" [routerLink]="['/game', game.id]">
+      <div class="title">{{game.gameNames | i18n}}</div>
+      <div class="description">{{game.gameDescriptions | i18n}}</div>
+      <div class="gameImg" [shBackgroundImage]="game.gamePhotoUrl" default="assets/img/confetti.jpg"></div>
+  </div>
+</div>

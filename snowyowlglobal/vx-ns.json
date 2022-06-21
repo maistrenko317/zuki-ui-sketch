@@ -1,0 +1,68 @@
+{
+  "defaultProject": "shout-trivia-mobile",
+  "projects": {
+    "shout-trivia-mobile": {
+      "root": "apps/mobile",
+      "main": "apps/mobile/app/main.ts",
+      "tsconfig": "apps/mobile/tsconfig.mobile.json",
+      "outputPath": "dist/mobile",
+      "defaultConfiguration": "dev",
+      "configurations": {
+        "dev": {
+          "forDevice": false
+        },
+        "devProd": {
+          "fileReplacements": [
+            {
+              "replace": "libs/environments/environment.ts",
+              "with": "libs/environments/environment.prod.ts"
+            }
+          ]
+        },
+        "production": {
+          "uglify": true,
+          "bo": false,
+          "clean": true,
+          "aot": true,
+          "forDevice": true,
+          "release": true,
+          "sourceMap": false,
+          "fileReplacements": [
+            {
+              "replace": "libs/environments/environment.ts",
+              "with": "libs/environments/environment.prod.ts"
+            }
+          ]
+
+        },
+        "stage": {
+          "uglify": true,
+          "bo": false,
+          "clean": true,
+          "aot": true,
+          "forDevice": true,
+          "release": true,
+          "fileReplacements": [
+            {
+              "replace": "libs/environments/environment.ts",
+              "with": "libs/environments/environment.stage.ts"
+            }
+          ]
+
+        }
+      },
+      "android": {
+        "v8Flags": "--expose_gc"
+      },
+      "nativescript": {
+        "id": "com.shout.millionize",
+        "tns-ios": {
+          "version": "6.5.0"
+        },
+        "tns-android": {
+          "version": "6.5.0"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<sh-home-detail [currentTab]="$currentTab | async" [gamesLoading]="gamesLoading$ | async"
+                [isLoggedIn]="isLoggedIn$ | async" [loadingSubscriberGames]="loadingSubscriberGames$ | async"
+                [selectedGamesView]="$selectedGamesView | async" [subscriber]="subscriber$ | async"
+                [subscriberGames]="subscriberGames$ | async" [games]="games$ | async"
+
+                [referredSubscribers]="referredSubscribers$ | async"
+                [referralTransactions]="referralTransactions$ | async"
+                [loadingReferralInfo]="loadingReferralInfo$ | async"
+                [referralUrl]="referralUrl$ | async"
+
+                (refresh)="refresh($event)" (joinPrivateGame)="joinPrivateGame($event)"
+                (selectGamesView)="selectGamesView($event)"></sh-home-detail>

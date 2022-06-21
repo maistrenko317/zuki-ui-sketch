@@ -1,0 +1,90 @@
+<div *ngIf="!paired" class="textCenter">
+  <h2 class="mTop0 mBottom10">{{round.roundName}}</h2>
+
+  <sh-person img="assets/img/people/{{person$ | async}}" defaultText="..."></sh-person>
+
+  <div class="pairing">Finding Opponent...</div>
+</div>
+
+<div *ngIf="paired" class="fadeIn page">
+  <div class="header mBottom10" vxFocusInitial>
+    <sh-person [person]="subscriber" [didWin]="round.didWin" [numLives]="round.myLives" [totalLives]="round.myTotalLives"
+               [animationDelay]="500" align="left" class="slideInLeft"></sh-person>
+    <!--<h2 class="roundTitle">{{round.roundNames | i18n}}</h2>-->
+
+    <sh-person [person]="round.matchedPlayer?.subscriberId | publicProfile | async"
+               [animationDelay]="500" [didWin]="round.didOpponentWin"
+               [numLives]="round.opponentLives" [totalLives]="round.opponentTotalLives"
+               defaultText="Pairing..." class="slideInRight" align="right"></sh-person>
+  </div>
+
+
+  <div class="buttonBar fadeIn">
+    <button [disabled]="!canGoBack"
+            (click)="currentQuestionIdx = currentQuestionIdx - 1;"
+            *ngIf="!isQuestionLocked">
+      <fa-icon icon="chevron-left"></fa-icon>
+    </button>
+
+    <div class="questionTitle fadeIn" *ngIf="!waitingForQuestion && !waitingForOpponent">
+      Question {{currentQuestionIdx + 1}}
+    </div>
+
+    <div *ngIf="waitingForQuestion" class="questionTitle fadeIn">
+      Waiting For Question {{currentQuestionIdx + (currentQuestion ? 2 : 1)}}
+      <vx-spinner vx-light></vx-spinner>
+    </div>
+
+    <div *ngIf="waitingForOpponent" class="questionTitle fadeIn">
+      Waiting For Opponent's Answer
+      <vx-spinner vx-light></vx-spinner>
+    </div>
+
+    <button [disabled]="!canGoForward" (click)="currentQuestionIdx = currentQuestionIdx + 1;"
+            *ngIf="!isQuestionLocked">
+      <fa-icon icon="chevron-right"></fa-icon>
+    </button>
+  </div>
+
+  <div *ngIf="currentQuestion" class="questionBody fadeIn">
+    <div class="questionText">
+      <hr class="mTop0">
+      {{currentQuestion.questionText | i18n}}
+      <hr class="mBottom0">
+    </div>
+
+    <div class="mTop10 textCenter">
+      <span *ngIf="countdown && !countdown.finished">
+        {{countdown | async | number:'1.1-1'}}
+      </span>
+      <span *ngIf="countdown && countdown.finished">
+        Too Slow!
+      </span>
+      <span *ngIf="userAnswer">
+        Answered!
+      </span>
+    </div>
+
+    <div class="answers">
+      <button [class.incorrect]="isIncorrect(answer)"
+              *ngFor="let answer of currentQuestion.answers; trackBy: trackByAnswer"
+              (click)="sendAnswer(answer)" [disabled]="userAnswer || currentQuestion.answer">
+
+        {{answer.answerText | i18n}}
+
+        <span *ngIf="answer.correct">.</span>
+
+        <fa-icon icon="chevron-right" class="answerLeft"  *ngIf="didAnswer(answer)"></fa-icon>
+        <fa-icon icon="chevron-left" class="answerRight"
+                 *ngIf="answer.id === currentQuestion.opponentAnswer?.selectedAnswerId"></fa-icon>
+      </button>
+    </div>
+
+  </div>
+
+  <div class="flex1"></div>
+  <div *ngIf="round.finished">
+    <button (click)="close.emit()" class="close">Close</button>
+  </div>
+</div>
+

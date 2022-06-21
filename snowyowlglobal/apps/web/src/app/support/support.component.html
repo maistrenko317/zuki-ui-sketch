@@ -1,0 +1,13 @@
+<sh-page [noRefresh]="true">
+  <div shHeaderLeft (click)="goBack()" *ngIf="isMobile$ | async">
+    <fa-icon icon="chevron-left"></fa-icon>Back
+  </div>
+  <div shHeaderContent>Support</div>
+
+  <div class="card" shPageBody>
+    Questions or concerns?
+    <p>
+      Send us an email at <a href="mailto:info@shout.tv">info@shout.tv</a>
+    </p>
+  </div>
+</sh-page>
